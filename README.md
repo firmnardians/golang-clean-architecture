@@ -82,3 +82,26 @@ POST /users
 "name": "firmnardians",
 "email": "firmnardians@gmail.com"
 }
+
+🧠 Penjelasan Setiap Layer
+
+1. Entity
+
+Berisi struktur data utama (User, Product, dsb) dan tidak bergantung pada library luar.
+
+2. Repository
+
+Berisi logika akses data (misalnya ke database).
+
+3. Usecase
+
+Berisi aturan bisnis dan logika aplikasi, seperti validasi, aturan create/get user, dll.
+
+4. Delivery
+
+Berisi HTTP handler (Fiber) yang menangani request/response.
+
+🧠 Kesimpulan:
+
+Arsitektur hexagonal membantu memisahkan logika bisnis dari infrastruktur,
+sehingga kode kamu jadi lebih mudah diuji, dikembangkan, dan dirawat.
