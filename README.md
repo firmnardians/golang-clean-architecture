@@ -78,10 +78,13 @@ go run main.go
 🧱 Contoh Request (POST)
 
 POST /users
+
+```bash
 {
 "name": "firmnardians",
 "email": "firmnardians@gmail.com"
 }
+```
 
 🧠 Penjelasan Setiap Layer
 
