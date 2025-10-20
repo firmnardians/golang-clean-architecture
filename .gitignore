@@ -1,0 +1,30 @@
+# === GO BUILD OUTPUT ===
+/bin/
+/build/
+/dist/
+/out/
+/tmp/
+/*.exe
+/*.out
+/*.test
+
+# === GO MODULES ===
+/vendor/
+go.work
+go.work.sum
+
+# === IDE / OS FILES ===
+.vscode/
+.idea/
+.DS_Store
+
+# === LOGS & CACHE ===
+*.log
+*.cache
+*.tmp
+
+# === ENV / CONFIG (JANGAN UPLOAD TOKEN DLL) ===
+.env
+.env.*
+config.yaml
+config.local.yaml
