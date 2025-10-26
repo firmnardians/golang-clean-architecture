@@ -12,6 +12,7 @@ type UserUsecase interface {
 	GetUsers() ([]entity.User, error)
 	CreateUsers(user entity.User) error
 	DeleteUsers(key string) error
+	UpdateUsers(user entity.User) error
 }
 
 type userUsecase struct {
@@ -42,4 +43,8 @@ func (u *userUsecase) DeleteUsers(key string) error {
 	}
 
 	return u.repo.DeleteUser(user.ID)
+}
+
+func (u *userUsecase) UpdateUsers(user entity.User) error {
+	return u.repo.UpdateUser(user)
 }

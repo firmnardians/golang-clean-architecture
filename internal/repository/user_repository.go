@@ -10,7 +10,8 @@ type UserRepository interface {
 	GetAll() ([]entity.User, error)
 	Create(user entity.User) error
 	FindUser(id int) (*entity.User, error)
-	DeleteUser(key int) error
+	DeleteUser(id int) error
+	UpdateUser(data entity.User) error
 }
 
 type userRepository struct {
@@ -64,4 +65,15 @@ func (r *userRepository) DeleteUser(id int) error {
 
 	r.data = dataUsers
 	return nil
+}
+
+func (r *userRepository) UpdateUser(user entity.User) error {
+	for i, u := range r.data {
+		if u.ID == user.ID {
+			r.data[i] = user
+			return nil
+		}
+	}
+
+	return errors.New("USER_NOT_FOUND")
 }
