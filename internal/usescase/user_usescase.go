@@ -8,6 +8,7 @@ import (
 type UserUsecase interface {
 	GetUsers() ([]entity.User, error)
 	CreateUsers(user entity.User) error
+	DeleteUsers(key string) error
 }
 
 type userUsecase struct {
@@ -24,4 +25,8 @@ func (u *userUsecase) GetUsers() ([]entity.User, error) {
 
 func (u *userUsecase) CreateUsers(user entity.User) error {
 	return u.repo.Create(user)
+}
+
+func (u *userUsecase) DeleteUsers(key string) error {
+	return u.repo.DeleteUser(key)
 }
