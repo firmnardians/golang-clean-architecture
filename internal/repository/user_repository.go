@@ -2,7 +2,6 @@ package repository
 
 import (
 	"errors"
-	"strconv"
 
 	"fiber/internal/entity"
 )
@@ -10,7 +9,8 @@ import (
 type UserRepository interface {
 	GetAll() ([]entity.User, error)
 	Create(user entity.User) error
-	DeleteUser(key string) error
+	FindUser(id int) (*entity.User, error)
+	DeleteUser(key int) error
 }
 
 type userRepository struct {
@@ -34,30 +34,30 @@ func (r *userRepository) Create(user entity.User) error {
 	return nil
 }
 
-func (r *userRepository) DeleteUser(key string) error {
-	num, err := strconv.Atoi(key)
-	if err != nil {
-		return nil
-	}
-
+func (r *userRepository) FindUser(id int) (*entity.User, error) {
 	users := r.data
-	keyInt := num
 
 	var found *entity.User
 	for _, u := range users {
-		if u.ID == keyInt {
+		if u.ID == id {
 			found = &u
 			break
 		}
 	}
 
 	if found == nil {
-		return errors.New("USER_NOT_FOUND")
+		return found, errors.New("USER_NOT_FOUND")
 	}
+
+	return found, nil
+}
+
+func (r *userRepository) DeleteUser(id int) error {
+	users := r.data
 
 	dataUsers := []entity.User{}
 	for _, u := range users {
-		if u.ID != keyInt {
+		if u.ID != id {
 			dataUsers = append(dataUsers, u)
 		}
 	}

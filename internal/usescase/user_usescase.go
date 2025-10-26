@@ -1,6 +1,9 @@
 package usescase
 
 import (
+	"errors"
+	"strconv"
+
 	"fiber/internal/entity"
 	"fiber/internal/repository"
 )
@@ -28,5 +31,15 @@ func (u *userUsecase) CreateUsers(user entity.User) error {
 }
 
 func (u *userUsecase) DeleteUsers(key string) error {
-	return u.repo.DeleteUser(key)
+	id, err := strconv.Atoi(key)
+	if err != nil {
+		return errors.New("INVALID_ID")
+	}
+
+	user, err := u.repo.FindUser(id)
+	if err != nil {
+		return err
+	}
+
+	return u.repo.DeleteUser(user.ID)
 }
