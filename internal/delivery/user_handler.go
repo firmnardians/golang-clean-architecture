@@ -33,14 +33,17 @@ func (h *userHandler) CreateUsers(c *fiber.Ctx) error {
 	var user entity.User
 
 	if err := c.BodyParser(&user); err != nil {
-		return c.Status(400).JSON(fiber.Map{"error": "Invalid body"})
+		return c.Status(400).JSON(fiber.Map{
+			"error":  "INVALID_BODY",
+			"detail": err.Error(),
+		})
 	}
 
 	if err := h.usescase.CreateUsers(user); err != nil {
 		return c.Status(400).JSON(fiber.Map{"error": err.Error()})
 	}
 
-	return c.Status(200).JSON(fiber.Map{"message": "User Created"})
+	return c.Status(200).JSON(fiber.Map{"message": "USER_CREATED"})
 }
 
 func (h *userHandler) DeleteUsers(c *fiber.Ctx) error {
@@ -50,19 +53,22 @@ func (h *userHandler) DeleteUsers(c *fiber.Ctx) error {
 		return c.Status(400).JSON(fiber.Map{"messsage": err.Error()})
 	}
 
-	return c.Status(200).JSON(fiber.Map{"message": "User Deleted"})
+	return c.Status(200).JSON(fiber.Map{"message": "USER_DELETED"})
 }
 
 func (h *userHandler) UpdateUsers(c *fiber.Ctx) error {
 	var user entity.User
 
 	if err := c.BodyParser(&user); err != nil {
-		return c.Status(400).JSON(fiber.Map{"error": "Invalid body"})
+		return c.Status(400).JSON(fiber.Map{
+			"error":  "INVALID_BODY",
+			"detail": err.Error(),
+		})
 	}
 
 	if err := h.usescase.UpdateUsers(user); err != nil {
 		return c.Status(400).JSON(fiber.Map{"message": err.Error()})
 	}
 
-	return c.Status(200).JSON(fiber.Map{"message": "User Updated"})
+	return c.Status(200).JSON(fiber.Map{"message": "USER_UPDATED"})
 }
