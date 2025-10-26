@@ -16,6 +16,7 @@ func NewUserHandler(app *fiber.App, u usescase.UserUsecase) {
 
 	app.Get("/users", handler.GetUsers)
 	app.Post("/users", handler.CreateUsers)
+	app.Delete("/users/:id", handler.DeleteUsers)
 }
 
 func (h *userHandler) GetUsers(c *fiber.Ctx) error {
@@ -39,4 +40,14 @@ func (h *userHandler) CreateUsers(c *fiber.Ctx) error {
 	}
 
 	return c.Status(200).JSON(fiber.Map{"message": "User Created"})
+}
+
+func (h *userHandler) DeleteUsers(c *fiber.Ctx) error {
+	keyId := c.Params("id")
+	err := h.usescase.DeleteUsers(keyId)
+	if err != nil {
+		return c.Status(400).JSON(fiber.Map{"messsage": err.Error()})
+	}
+
+	return c.Status(200).JSON(fiber.Map{"message": "User Deleted"})
 }
